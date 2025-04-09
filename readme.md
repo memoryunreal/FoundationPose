@@ -220,3 +220,32 @@ The code and data are released under the NVIDIA Source Code License. Copyright Â
 
 # Contact
 For questions, please contact [Bowen Wen](https://wenbowen123.github.io/).
+
+# Generating 3D Models from Images using TRELLIS
+
+TRELLIS is a powerful tool integrated within FoundationPose that allows you to generate detailed 3D models from single images. The process is simple:
+
+1. **Setup**: Make sure you have the TRELLIS weights downloaded in the `tools/TRELLIS/weights/` directory.
+
+2. **Basic Usage**:
+   ```bash
+   cd tools/TRELLIS
+   python generate_3d_from_image.py --image_path PATH_TO_IMAGE --output_dir OUTPUT_DIRECTORY
+   ```
+
+3. **Advanced Options**:
+   - Use `--mask_path` to provide a mask for isolating objects
+   - Adjust sampling parameters with `--ss_steps`, `--ss_cfg`, `--slat_steps`, and `--slat_cfg`
+   - Control mesh quality with `--mesh_simplify` and `--texture_size`
+
+4. **Outputs**:
+   - 3D Gaussian point cloud (`.ply` format)
+   - Rendered visualizations of the 3D model
+   - You can view the results using tools like MeshLab or Blender
+
+TRELLIS uses a two-stage approach: first generating a sparse structure from the image, then refining it with a Structured Latent (SLAT) sampler to create detailed 3D representations. This is particularly useful for creating 3D assets from real-world images for use in FoundationPose's pose estimation and tracking pipeline.
+
+Example:
+```bash
+python generate_3d_from_image.py --image_path demo_data/example.png --mask_path demo_data/mask.png --output_dir ./output
+```
